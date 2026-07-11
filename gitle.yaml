@@ -1,9 +1,9 @@
 {
-  "run": "php artisan serve --host 0.0.0.0 --port 8000",
+  "run": "cd backend && php artisan migrate --force && php -S 0.0.0.0:8000 -t public public/index.php",
   "port": 8000,
-  "build": "npm run build",
+  "build": "cd frontend && npm run build",
   "image": "node:22-bookworm",
-  "setup": "apt-get update && apt-get install -y php-cli php-mbstring php-xml php-curl php-zip php-sqlite3 unzip && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install --no-interaction --prefer-dist && npm install",
+  "setup": "apt-get update && apt-get install -y php-cli php-mbstring php-xml php-curl php-mysql unzip git && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && cd backend && composer config policy.advisories.block false && composer install && cd ../frontend && npm install",
   "services": [
     "mysql"
   ]
