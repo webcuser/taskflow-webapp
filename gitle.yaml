@@ -5,11 +5,18 @@
   "components": {
     "backend": {
       "dir": "backend",
-      "run": "composer dump-autoload && cp .env.example .env && php artisan key:generate --force && php artisan migrate --force && php artisan serve --host 0.0.0.0 --port 8000",
-      "port": 8000,
       "image": "php:8.2-cli",
-      "setup": "apt-get update && apt-get install -y git unzip libpq-dev && docker-php-ext-install pdo pdo_pgsql && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && cd backend && composer install --no-interaction --prefer-dist --no-scripts --no-autoloader && cd ../frontend && npm ci && npm run build",
+      "setup": "apt-get update && apt-get install -y git unzip libpq-dev && docker-php-ext-install pdo pdo_pgsql && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install --no-interaction --prefer-dist",
+      "run": "cp .env.example .env && php artisan key:generate --force && php artisan migrate --force && php -S 0.0.0.0:8000 -t public public/index.php",
+      "port": 8000,
       "primary": true
+    },
+    "frontend": {
+      "dir": "frontend",
+      "image": "node:22-bookworm",
+      "setup": "npm ci",
+      "run": "npm run dev -- --host 0.0.0.0 --port 5173",
+      "port": 5173
     }
   },
   "autoPreview": true
