@@ -1,7 +1,6 @@
 {
   "name": "taskflow-frontend",
   "version": "1.0.0",
-  "description": "Frontend for TaskFlow application",
   "main": "src/main.tsx",
   "scripts": {
     "dev": "vite",
@@ -13,8 +12,9 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.9",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^4.9.4",
     "vite": "^4.0.0"
   }
 }
