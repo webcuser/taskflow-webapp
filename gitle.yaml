@@ -1,0 +1,11 @@
+{
+  "run": "cd backend && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000",
+  "port": 8000,
+  "test": "cd backend && ./vendor/bin/phpunit",
+  "build": "cd frontend && npm run build",
+  "image": "node:22-bookworm",
+  "setup": "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y php-cli php-mbstring php-xml php-curl php-mysql unzip git && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && cd backend && composer install && cd ../frontend && npm install",
+  "services": [
+    "mysql"
+  ]
+}
