@@ -1,11 +1,10 @@
 {
-  "run": "php -S 0.0.0.0:8000 -t backend/public & cd frontend && npm run serve -- --host 0.0.0.0 --port 5173",
-  "port": 5173,
+  "run": "cd backend && php artisan migrate --force && php -S 0.0.0.0:8000 -t public public/index.php",
+  "port": 8000,
   "build": "cd frontend && npm run build",
-  "image": "node:18-bookworm",
-  "setup": "apt-get update && apt-get install -y php-cli php-mbstring php-xml php-curl php-mysql unzip git && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && cd backend && composer install && cd ../frontend && npm install",
+  "image": "node:22-bookworm",
+  "setup": "apt-get update && apt-get install -y php-cli php-mbstring php-xml php-curl php-mysql unzip git && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && cd backend && composer config policy.advisories.block false && composer install && cd ../frontend && npm install",
   "services": [
     "mysql"
-  ],
-  "docker_build": "docker buildx build --platform linux/amd64,linux/arm64 -t myapp:latest ."
+  ]
 }
