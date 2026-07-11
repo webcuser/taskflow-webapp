@@ -16,6 +16,5 @@ components:
     dir: frontend
     run: npm run dev -- --host 0.0.0.0 --port 5173
     port: 5173
-    image: node:14
+    image: node:22-bookworm
     setup: npm install
-autoPreview: true
