@@ -1,15 +1,21 @@
-{
-  "services": [
-    "postgres"
-  ],
-  "components": {
-    "backend": {
-      "dir": "backend",
-      "run": "php artisan migrate --force && php -S 0.0.0.0:8000 -t public public/index.php",
-      "port": 8000,
-      "image": "php:8.0-apache",
-      "primary": true
-    }
-  },
-  "autoPreview": true
-}
+services:
+  - postgres
+components:
+  backend:
+    dir: backend
+    run: php artisan serve --host 0.0.0.0 --port 8000
+    port: 8000
+    image: php:8.0-cli
+    setup: |
+      apt-get update && \
+      apt-get install -y php-cli php-mbstring php-xml php-curl php-zip php-sqlite3 unzip && \
+      curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+      composer install --no-interaction --prefer-dist
+    primary: true
+  frontend:
+    dir: frontend
+    run: npm run dev -- --host 0.0.0.0 --port 5173
+    port: 5173
+    image: node:14
+    setup: npm install
+autoPreview: true
